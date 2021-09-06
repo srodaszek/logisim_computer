@@ -1,14 +1,17 @@
-XD:
-LDI    1 ;wczytanie programu
+.data
+a 192
+b 193
+.start
+LDI 1 ;wczytanie programu
 OUT
-STA 192 ; zapisywanie do pamieci
-STA 193 ;zapisywanie do pamieci drugiej liczby
+STA a ; zapisywanie do pamieci
+STA b ;zapisywanie do pamieci drugiej liczby
 loop:
-ADD 192
-STA 192
+ADD a
+STA a
 OUT
 
-ADD    193
-STA 193
+ADD    b
+STA b
 OUT
 JMP loop

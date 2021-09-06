@@ -49,10 +49,12 @@ def translate_number(number):
 
 def translate_file(file):
     result=[]
-    global flags
+    global flags, variables
     for line in file:
         if line in flags.keys():
             result.append(translate_number(flags[line]))
+        elif line in variables.keys():
+            result.append(translate_number(int(variables[line])))
         elif  re.search("^\d*$",line):
             result.append(translate_number(int(line)))
         elif line.upper()=="ADI":result.append("01\n")
@@ -70,9 +72,44 @@ def translate_file(file):
             exit(4)
     return result
 
+def find_variables(file):
+    result=[]
+    global variables
+    if file[0]==".start":
+        i=1
+        while i<len(file):
+            result.append(file[i])
+            i+=1
+        return result
+    else:
+        i=1
+        while i<len(file):
+            if file[i]==".data":
+                i+=1
+                continue
+                
+            elif file[i]==".start":
+                i+=1
+                while i<len(file):
+                    result.append(file[i])
+                    i+=1
+                return result
+            else:
+                temp=file[i].split()
+                variables[temp[0]]=int(temp[1])
+                i+=1
+
+def translate_variables(file):
+    global variables
+    for key in variables.keys():
+        file.append(str(variables[key]))
+        variables[key]=len(file)-1
+    return file
+
+
 
 flags=dict()
-
+variables=dict()
 
 
 if len(sys.argv)==0:
@@ -88,8 +125,11 @@ except:
 
 file=file.split('\n')
 file=delete_comments(file)
+file=find_variables(file)
+
 file=split_file(file)
 file=find_flags(file)
+#file=translate_variables(file)
 file=translate_file(file)
 print(file)
 
@@ -99,6 +139,7 @@ else:
     filename=".\\a.out"
 
 result_file=open(filename,"w")
+result_file.write("v2.0 raw\n")
 for line in file:
     result_file.write(line)
 
