@@ -65,6 +65,8 @@ def translate_file(file):
         elif line.upper()=="LDI":result.append("06\n")
         elif line.upper()=="LDA":result.append("07\n")
         elif line.upper()=="JZ":result.append("08\n")
+        elif line.upper()=="SBI":result.append("09\n")
+        elif line.upper()=="SUB":result.append("0a\n")
         elif line.upper()=="HLT":result.append("ff\n")
         elif line.upper()=="NOP":result.append("00\n")
         else:
@@ -129,7 +131,7 @@ file=find_variables(file)
 
 file=split_file(file)
 file=find_flags(file)
-#file=translate_variables(file)
+file=translate_variables(file)
 file=translate_file(file)
 print(file)
 
