@@ -1,17 +1,14 @@
-.data
-a 192
-b 193
 .start
-LDI 1 ;wczytanie programu
+LDI 1
+PUSH
+LDI 2
+PUSH
+LDI 3
+PUSH
+POP
 OUT
-STA a ; zapisywanie do pamieci
-STA b ;zapisywanie do pamieci drugiej liczby
-loop:
-ADD a
-STA a
+POP
 OUT
-
-ADD    b
-STA b
+POP
 OUT
-JMP loop
+HLT

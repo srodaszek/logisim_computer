@@ -18,6 +18,11 @@ def parse_command(command):
         elif code=="MI":result|=1<<11
         elif code=="II":result|=1<<12
         elif code=="AO":result|=1<<13
+        elif code=="SPO":result|=1<<14
+        elif code=="DEC":result|=1<<15
+        elif code=="INC":result|=1<<16
+        elif code=="AND":result|=1<<17
+        elif code=="OR":result|=1<<18
 
         elif code=="NOP":pass
     return result

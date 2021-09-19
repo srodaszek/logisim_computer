@@ -67,6 +67,10 @@ def translate_file(file):
         elif line.upper()=="JZ":result.append("08\n")
         elif line.upper()=="SBI":result.append("09\n")
         elif line.upper()=="SUB":result.append("0a\n")
+        elif line.upper()=="JS":result.append("0b\n")
+        elif line.upper()=="JC":result.append("0c\n")
+        elif line.upper()=="PUSH":result.append("0d\n")
+        elif line.upper()=="POP":result.append("0e\n")
         elif line.upper()=="HLT":result.append("ff\n")
         elif line.upper()=="NOP":result.append("00\n")
         else:
